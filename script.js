@@ -31,6 +31,10 @@ function convert() {
       result = value * 2.20462;
       resultElement.textContent = `${value} กิโลกรัม = ${result.toFixed(2)} ปอนด์`;
       break;
+    case "lb-kg":
+      result = value / 2.20462;
+      resultElement.textContent = `${value} ปอนด์ = ${result.toFixed(2)} กิโลกรัม`;
+      break;
     default:
       resultElement.textContent = "❌ ไม่สามารถแปลงหน่วยนี้ได้";
   }
