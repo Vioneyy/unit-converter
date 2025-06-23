@@ -1,4 +1,3 @@
-// ข้อมูลหน่วยและสูตรแปลง (กำหนดให้เพิ่มได้ง่าย)
 const units = {
   length: {
     label: "ความยาว",
@@ -34,14 +33,6 @@ const units = {
   }
 };
 
-// คัดลอก units ทั้งหมดมาเป็น list แยกประเภทเพื่อสร้าง option
-let unitOptions = [];
-for (const category in units) {
-  for (const key in units[category].units) {
-    unitOptions.push({ category, key, name: units[category].units[key].name });
-  }
-}
-
 const inputValue = document.getElementById("inputValue");
 const unitFrom = document.getElementById("unitFrom");
 const unitTo = document.getElementById("unitTo");
@@ -50,13 +41,10 @@ const resultEl = document.getElementById("result");
 const historyList = document.getElementById("historyList");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
-// ฟังก์ชันสร้าง dropdown option แบ่งกลุ่มหมวดหมู่
 function populateSelectOptions() {
-  // ลบค่าเดิมก่อน
   unitFrom.innerHTML = "";
   unitTo.innerHTML = "";
 
-  // สร้าง option เป็นกลุ่ม category
   for (const category in units) {
     const optgroupFrom = document.createElement("optgroup");
     const optgroupTo = document.createElement("optgroup");
@@ -78,12 +66,10 @@ function populateSelectOptions() {
     unitTo.appendChild(optgroupTo);
   }
 
-  // ตั้งค่าเริ่มต้น
   unitFrom.selectedIndex = 0;
-  unitTo.selectedIndex = 1; // ต่างจากต้นทางเพื่อไม่ให้ซ้ำกัน
+  unitTo.selectedIndex = 1;
 }
 
-// ฟังก์ชันแปลงค่า
 function convert() {
   const value = parseFloat(inputValue.value);
   if (isNaN(value)) {
@@ -94,7 +80,6 @@ function convert() {
   const [categoryFrom, keyFrom] = unitFrom.value.split(":");
   const [categoryTo, keyTo] = unitTo.value.split(":");
 
-  // เช็คประเภทหน่วยต้องตรงกัน
   if (categoryFrom !== categoryTo) {
     resultEl.textContent = "❌ ไม่สามารถแปลงระหว่างประเภทหน่วยต่างกันได้";
     return;
@@ -103,9 +88,7 @@ function convert() {
   const fromUnit = units[categoryFrom].units[keyFrom];
   const toUnit = units[categoryTo].units[keyTo];
 
-  // แปลงค่าเป็นหน่วยฐานก่อน
   const baseValue = fromUnit.toBase(value);
-  // แปลงจากหน่วยฐานเป็นหน่วยปลายทาง
   const converted = toUnit.fromBase(baseValue);
 
   const resultStr = `${value} ${fromUnit.name} = ${converted.toFixed(4)} ${toUnit.name}`;
@@ -115,10 +98,8 @@ function convert() {
   renderHistory();
 }
 
-// จัดการประวัติใน localStorage
 function saveToHistory(entry) {
   let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-  // เก็บแค่ 10 รายการล่าสุด
   history.unshift(entry);
   if (history.length > 10) history.pop();
   localStorage.setItem("conversionHistory", JSON.stringify(history));
@@ -127,13 +108,12 @@ function saveToHistory(entry) {
 function renderHistory() {
   let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
   historyList.innerHTML = "";
-  history.forEach((item, idx) => {
+  history.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
     li.tabIndex = 0;
     li.setAttribute("role", "button");
     li.addEventListener("click", () => {
-      // เมื่อคลิกเลือก ประโยคในประวัติจะถูกใส่ในช่องผลลัพธ์ทันที
       resultEl.textContent = item;
     });
     historyList.appendChild(li);
@@ -145,11 +125,9 @@ function clearHistory() {
   renderHistory();
 }
 
-// Event listeners
 convertBtn.addEventListener("click", convert);
 clearHistoryBtn.addEventListener("click", clearHistory);
 
-// โหลด dropdown ตอนโหลดเว็บ
 window.addEventListener("DOMContentLoaded", () => {
   populateSelectOptions();
   renderHistory();
