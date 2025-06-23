@@ -2,35 +2,59 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>ตัวแปลงหน่วย</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <title>ตัวแปลงหน่วยขั้นสูง</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="converter-container">
-    <h1>🔄 ตัวแปลงหน่วย</h1>
+  <main class="container">
+    <h1>🔄 ตัวแปลงหน่วยขั้นสูง</h1>
 
-    <div class="form-group">
-      <label for="converter">เลือกประเภทการแปลง:</label>
-      <select id="converter" onchange="updateUnitLabel()">
-        <option value="km-miles">กิโลเมตร → ไมล์</option>
-        <option value="miles-km">ไมล์ → กิโลเมตร</option>
-        <option value="c-f">เซลเซียส → ฟาเรนไฮต์</option>
-        <option value="f-c">ฟาเรนไฮต์ → เซลเซียส</option>
-        <option value="kg-lb">กิโลกรัม → ปอนด์</option>
-        <option value="lb-kg">ปอนด์ → กิโลกรัม</option>
-      </select>
-    </div>
+    <section class="converter-section" aria-label="ตัวแปลงหน่วย">
+      <div class="form-group">
+        <label for="inputValue">กรอกตัวเลข</label>
+        <input
+          type="number"
+          id="inputValue"
+          aria-describedby="inputValueHelp"
+          placeholder="เช่น 100"
+          inputmode="decimal"
+        />
+        <small id="inputValueHelp">กรอกค่าที่ต้องการแปลง</small>
+      </div>
 
-    <div class="form-group input-row">
-      <input type="number" id="inputValue" placeholder="กรอกตัวเลข">
-      <span id="unitLabel">กิโลเมตร</span>
-    </div>
+      <div class="form-group">
+        <label for="unitFrom">เลือกหน่วยต้นทาง</label>
+        <select id="unitFrom" aria-label="หน่วยต้นทาง"></select>
+      </div>
 
-    <button onclick="convert()">แปลงค่า</button>
+      <div class="form-group">
+        <label for="unitTo">เลือกหน่วยปลายทาง</label>
+        <select id="unitTo" aria-label="หน่วยปลายทาง"></select>
+      </div>
 
-    <div class="result-box" id="result">ผลลัพธ์จะปรากฏที่นี่</div>
-  </div>
+      <button id="convertBtn" aria-label="แปลงค่า">แปลงค่า</button>
+
+      <div id="result" class="result-box" aria-live="polite" aria-atomic="true">
+        ผลลัพธ์จะปรากฏที่นี่
+      </div>
+    </section>
+
+    <section class="history-section" aria-label="ประวัติการแปลง">
+      <h2>🕘 ประวัติการแปลงหน่วย</h2>
+      <ul id="historyList" class="history-list" role="list"></ul>
+      <button id="clearHistoryBtn">ล้างประวัติ</button>
+    </section>
+
+    <section class="docs-section" aria-label="คำอธิบายโปรเจกต์">
+      <h2>📖 วิธีใช้</h2>
+      <p>
+        เลือกหน่วยต้นทางและหน่วยปลายทางจากรายการ เลือกค่าที่ต้องการแปลง ระบบจะคำนวณและแสดงผลลัพธ์ทันที
+        ประวัติการแปลงจะถูกบันทึกไว้ คุณสามารถล้างประวัติได้โดยกดปุ่ม "ล้างประวัติ"
+      </p>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
