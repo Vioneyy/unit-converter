@@ -68,5 +68,5 @@ function updateUnitLabel() {
   }
 }
 
-// อัปเดต label เริ่มต้นเมื่อโหลด
+// เรียกเมื่อโหลดหน้าเว็บ
 window.onload = updateUnitLabel;
