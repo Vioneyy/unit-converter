@@ -60,6 +60,9 @@ function updateUnitLabel() {
     case "kg-lb":
       unitLabel.textContent = "กิโลกรัม";
       break;
+    case "lb-kg":
+      unitLabel.textContent = "ปอนด์";
+      break;
     default:
       unitLabel.textContent = "";
   }
