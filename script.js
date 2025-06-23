@@ -68,5 +68,4 @@ function updateUnitLabel() {
   }
 }
 
-// เรียกเมื่อโหลดหน้าเว็บ
 window.onload = updateUnitLabel;
