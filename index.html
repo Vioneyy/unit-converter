@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ตัวแปลงหน่วย</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="converter-container">
+    <h1>🔄 ตัวแปลงหน่วย</h1>
+
+    <div class="form-group">
+      <label for="converter">เลือกประเภทการแปลง:</label>
+      <select id="converter" onchange="updateUnitLabel()">
+        <option value="km-miles">กิโลเมตร → ไมล์</option>
+        <option value="miles-km">ไมล์ → กิโลเมตร</option>
+        <option value="c-f">เซลเซียส → ฟาเรนไฮต์</option>
+        <option value="f-c">ฟาเรนไฮต์ → เซลเซียส</option>
+        <option value="kg-lb">กิโลกรัม → ปอนด์</option>
+      </select>
+    </div>
+
+    <div class="form-group input-row">
+      <input type="number" id="inputValue" placeholder="กรอกตัวเลข">
+      <span id="unitLabel">กิโลเมตร</span>
+    </div>
+
+    <button onclick="convert()">แปลงค่า</button>
+
+    <div class="result-box" id="result">ผลลัพธ์จะปรากฏที่นี่</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
