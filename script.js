@@ -70,6 +70,14 @@ function populateSelectOptions() {
   unitTo.selectedIndex = 1;
 }
 
+function formatNumber(num) {
+  if (Number.isInteger(num)) {
+    return num.toString();
+  } else {
+    return num.toFixed(4).replace(/\.?0+$/, '');
+  }
+}
+
 function convert() {
   const value = parseFloat(inputValue.value);
   if (isNaN(value)) {
@@ -91,7 +99,7 @@ function convert() {
   const baseValue = fromUnit.toBase(value);
   const converted = toUnit.fromBase(baseValue);
 
-  const resultStr = `${value} ${fromUnit.name} = ${converted.toFixed(4)} ${toUnit.name}`;
+  const resultStr = `${formatNumber(value)} ${fromUnit.name} = ${formatNumber(converted)} ${toUnit.name}`;
   resultEl.textContent = resultStr;
 
   saveToHistory(resultStr);
